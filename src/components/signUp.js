@@ -36,16 +36,41 @@ class Signup extends React.Component {
     }
 
     handleSbmit = ( userData ) => {
-        console.log(userData);
+        
+        if(this.validation()){
+            console.log(userData);
         console.log(userData.email);
         console.log(userData.password);
+        }
+    }
+
+    passwordValidation = (password, confirmPassword) => {
+        if (password.length >= 6 && password === confirmPassword ) {
+            // return true;
+            this.setState({
+                error: 'Password must be same & atleast of 6 character'
+            })
+        }
+
+        else {
+                return true;
+        }
+        
     }
 
     validation = () => {
         if(this.formEmpty(this.state)){
+            console.log(this.state);
+            
             this.setState({
-                error: 'Fill the feilds'
+                error: 'Fill in all feilds'
             })
+            console.log('Fill in all feilds');
+            
+        }
+
+        else if (this.passwordValidation(this.state)){
+
         }
     }
 
@@ -53,6 +78,8 @@ class Signup extends React.Component {
         // console.log(this.state.username);
         // console.log(this.state.email);
         // console.log(this.state.confirmPassword);
+        console.log(this.state.error);
+        
 
         return (
             <div>
