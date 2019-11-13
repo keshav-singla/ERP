@@ -27,7 +27,14 @@ class Signup extends React.Component {
     }
 
     formEmpty = (username, email, password, confirmPassword) => {
-        return !username.length || !email.length || !password.length || !confirmPassword.length
+        console.log(this.state.password);
+        
+        // return !username.length || !email.length || !password.length || !confirmPassword.length
+        // if(username.length === 0 || email.length === 0 || password.length === 0 || confirmPassword.length === 0 ){
+        //     this.setState({
+        //         error: "fill all the feilds"
+        //     })
+        // }
     }
 
     handleChange = (e) => {
@@ -35,7 +42,7 @@ class Signup extends React.Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    handleSbmit = ( userData ) => {
+    handleSubmit = ( userData ) => { debugger
         
         if(this.validation()){
             console.log(userData);
@@ -47,6 +54,8 @@ class Signup extends React.Component {
     passwordValidation = (password, confirmPassword) => {
         if (password.length >= 6 && password === confirmPassword ) {
             // return true;
+            console.log('password valid');
+            
             this.setState({
                 error: 'Password must be same & atleast of 6 character'
             })
@@ -60,13 +69,7 @@ class Signup extends React.Component {
 
     validation = () => {
         if(this.formEmpty(this.state)){
-            console.log(this.state);
-            
-            this.setState({
-                error: 'Fill in all feilds'
-            })
-            console.log('Fill in all feilds');
-            
+         console.log(this.state);
         }
 
         else if (this.passwordValidation(this.state)){
@@ -75,11 +78,7 @@ class Signup extends React.Component {
     }
 
     render() {
-        // console.log(this.state.username);
-        // console.log(this.state.email);
-        // console.log(this.state.confirmPassword);
         console.log(this.state.error);
-        
 
         return (
             <div>
@@ -188,7 +187,7 @@ class Signup extends React.Component {
                             <Button
                                 variant="contained"
                                 color="primary"
-                                onClick = { () => this.handleSbmit( {email: this.state.email , password: this.state.password} )}
+                                onClick = { () => this.handleSubmit( {email: this.state.email , password: this.state.password} )} 
                             >
                                 Sign up
                             </Button> <br />
