@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import { Grid, Paper } from '@material-ui/core';
 
 //Icons
+import PersonPinTwoToneIcon from '@material-ui/icons/PersonPinTwoTone';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
 import EmailTwoToneIcon from '@material-ui/icons/EmailTwoTone';
@@ -18,23 +19,18 @@ class Signup extends React.Component {
     constructor() {
         super()
         this.state = {
+            firstName: '',
+            lastName: '',
             username: '',
             email: '',
             password: '',
             confirmPassword: '',
-            error : ''
+            error: ''
         }
     }
 
-    formEmpty = (username, email, password, confirmPassword) => {
-        console.log(this.state.password);
-        
-        // return !username.length || !email.length || !password.length || !confirmPassword.length
-        // if(username.length === 0 || email.length === 0 || password.length === 0 || confirmPassword.length === 0 ){
-        //     this.setState({
-        //         error: "fill all the feilds"
-        //     })
-        // }
+    formEmpty = ({ username, email, password, confirmPassword }) => {
+        return !username.length || !email.length || !password.length || !confirmPassword.length
     }
 
     handleChange = (e) => {
@@ -42,44 +38,53 @@ class Signup extends React.Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    handleSubmit = ( userData ) => { debugger
-        
-        if(this.validation()){
-            console.log(userData);
-        console.log(userData.email);
-        console.log(userData.password);
-        }
+    handleSubmit = (userData) => {
+        // debugger
+        console.log(userData);
+        // if (this.validation()) {
+            fire.auth().createUserWithEmailAndPassword(userData.email, userData.password)
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+
+                    console.log(errorCode);
+                    console.log(errorMessage);
+                });
+        // }
     }
 
-    passwordValidation = (password, confirmPassword) => {
-        if (password.length >= 6 && password === confirmPassword ) {
-            // return true;
-            console.log('password valid');
-            
-            this.setState({
-                error: 'Password must be same & atleast of 6 character'
-            })
+    passwordValidation = ({ password, confirmPassword }) => {
+        if (password.length >= 6 && password === confirmPassword) {
+            console.log('Password valid');
+            return false;
         }
 
         else {
-                return true;
+            return true;
         }
-        
     }
 
     validation = () => {
-        if(this.formEmpty(this.state)){
-         console.log(this.state);
+        console.log(this.state)
+        if (this.formEmpty(this.state)) {
+            // this.setState({
+            //     error: 'All feilds are mandatory to be filled'
+            // })
         }
 
-        else if (this.passwordValidation(this.state)){
-
+        else if (this.passwordValidation(this.state)) {
+            this.setState({
+                error: 'Password must be same and longer than 6 digits'
+            })
         }
     }
 
     render() {
-        console.log(this.state.error);
-
+        console.log(this.state.firstName);
         return (
             <div>
                 <Grid
@@ -93,24 +98,59 @@ class Signup extends React.Component {
 
                     <Grid
                         item xs={6}
-                        // style={{ margin: 20 }}
                     >
-                        <Paper
-                            style={{ padding: 20 }}
-                        >
+                        <Paper style={{ padding: 20 }} >
+
                             <TextField
-                                id="input-with-icon-textfield"
+                                label="First Name"
+                                style={{ margin: 8 }}
+                                placeholder="First Name"
+                                name='firstName'
+                                onChange={this.handleChange}
+                                fullWidth
+                                margin="dense"
+                                autoComplete='off'
+                                InputProps={{
+                                    shrink: true,
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <PersonPinTwoToneIcon color='primary' />
+                                        </InputAdornment>
+                                    )
+                                }}
+                            /> <br />
+
+                            <TextField
+                                label="Last Name"
+                                style={{ margin: 8 }}
+                                placeholder="Last Name"
+                                name='lastName'
+                                onChange={this.handleChange}
+                                fullWidth
+                                margin="dense"
+                                autoComplete='off'
+                                InputProps={{
+                                    shrink: true,
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <PersonPinTwoToneIcon color='primary' />
+                                        </InputAdornment>
+                                    )
+                                }}
+                            /> <br />
+
+                            <TextField
                                 label="Username"
                                 style={{ margin: 8 }}
                                 placeholder="username"
-                                name='username'
+                                name='Username'
                                 onChange={this.handleChange}
-                                // fullWidth
+                                fullWidth
                                 margin="dense"
-                                variant='outlined'
+                                // variant='outlined'
                                 autoComplete='off'
                                 InputProps={{
-                                    // shrink: true,
+                                    shrink: true,
                                     startAdornment: (
                                         <InputAdornment position="start">
                                             <AccountCircleTwoToneIcon color='primary' />
@@ -120,15 +160,13 @@ class Signup extends React.Component {
                             /> <br />
 
                             <TextField
-                                id="input-with-icon-textfield"
                                 label="Email"
                                 style={{ margin: 8 }}
                                 placeholder="xyz@example.com"
                                 name='email'
                                 onChange={this.handleChange}
-                                // fullWidth
+                                fullWidth
                                 margin="dense"
-                                variant='outlined'
                                 autoComplete='off'
                                 InputProps={{
                                     shrink: true,
@@ -138,19 +176,17 @@ class Signup extends React.Component {
                                         </InputAdornment>
                                     )
                                 }}
-                            /><br />
+                            /> <br />
 
                             <TextField
-                                id="input-with-icon-textfield"
                                 label="Password"
                                 style={{ margin: 8 }}
-                                placeholder="password"
+                                placeholder="Password"
                                 name='password'
                                 type='password'
                                 onChange={this.handleChange}
-                                // fullWidth
+                                fullWidth
                                 margin="dense"
-                                variant='outlined'
                                 autoComplete='off'
                                 InputProps={{
                                     shrink: true,
@@ -160,19 +196,17 @@ class Signup extends React.Component {
                                         </InputAdornment>
                                     )
                                 }}
-                            /><br />
+                            /> <br />
 
                             <TextField
-                                id="input-with-icon-textfield"
                                 label="Confirm Password"
                                 style={{ margin: 8 }}
-                                placeholder="confirm password"
+                                placeholder="Confirm Password"
                                 name='confirmPassword'
                                 type='password'
                                 onChange={this.handleChange}
-                                // fullWidth
+                                fullWidth
                                 margin="dense"
-                                variant='outlined'
                                 autoComplete='off'
                                 InputProps={{
                                     shrink: true,
@@ -182,12 +216,12 @@ class Signup extends React.Component {
                                         </InputAdornment>
                                     )
                                 }}
-                            /><br />
+                            /> <br />
 
                             <Button
                                 variant="contained"
                                 color="primary"
-                                onClick = { () => this.handleSubmit( {email: this.state.email , password: this.state.password} )} 
+                                onClick={() => this.handleSubmit({ email: this.state.email, password: this.state.password })}
                             >
                                 Sign up
                             </Button> <br />
@@ -205,10 +239,12 @@ class Signup extends React.Component {
 
                 </Grid>
 
-
             </div>
         )
     }
 }
 
 export default Signup;
+
+//validation on 'Sign up' button
+// creatimg userr with firebase api 
