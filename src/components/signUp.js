@@ -4,10 +4,10 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Grid, Paper } from '@material-ui/core';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 //Icons
 import PersonPinTwoToneIcon from '@material-ui/icons/PersonPinTwoTone';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
 import EmailTwoToneIcon from '@material-ui/icons/EmailTwoTone';
 import LockOpenTwoToneIcon from '@material-ui/icons/LockOpenTwoTone';
@@ -15,9 +15,15 @@ import LockOpenTwoToneIcon from '@material-ui/icons/LockOpenTwoTone';
 //Firebase
 import fire from '../config.js/fireBaseConfiguration'
 
+// Redux
+import { createdUser } from '../actions/createUser'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
+
 class Signup extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
+
         this.state = {
             firstName: '',
             lastName: '',
@@ -39,9 +45,9 @@ class Signup extends React.Component {
     }
 
     handleSubmit = (userData) => {
-        // debugger
         console.log(userData);
         if (this.validation()) {
+            this.props.createdUser(userData)
             fire.auth().createUserWithEmailAndPassword(userData.email, userData.password)
                 .then(response => {
                     this.setState = ({
@@ -53,11 +59,9 @@ class Signup extends React.Component {
                 })
                 .catch( (error) => {
                     // Handle Errors here.
-                    var errorCode = error.code;
+                    // var errorCode = error.code;
                     var errorMessage = error.message;
 
-                    console.log(errorCode);
-                    console.log(errorMessage);
                     this.setState = ({
                         error : errorMessage
                     })
@@ -236,8 +240,11 @@ class Signup extends React.Component {
                                     onClick={() => this.handleSubmit({ email: this.state.email, password: this.state.password })}
                                 >
                                     Sign up
-                            </Button> <br />
-
+                                </Button> <br />
+                                
+                                    Already have an Account ? Login
+                                    <br />
+                                    <br />
                             {this.state.error}
 
                             </Paper>
@@ -256,7 +263,8 @@ class Signup extends React.Component {
     }
 }
 
-export default Signup;
+function mapDispatchToProps (dispatch){
+    return bindActionCreators( {createdUser}, dispatch )
+}
 
-//validation on 'Sign up' button
-// creatimg userr with firebase api 
+export default connect( ()=>{} , mapDispatchToProps ) (Signup);
