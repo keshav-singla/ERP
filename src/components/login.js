@@ -32,7 +32,11 @@ class Login extends React.Component {
         fire.auth().signInWithEmailAndPassword(userData.email, userData.password)
         .then(response => {
             console.log(response.user);
+            this.setState ({
+                error :''
+            })
         })
+       
         
         .catch( (error) => {
             // Handle Errors here.
@@ -47,7 +51,7 @@ class Login extends React.Component {
             console.log(this.state.error);
           });
 
-          
+
     }
 
     render() {
@@ -115,7 +119,9 @@ class Login extends React.Component {
                                     onClick = { () => this.handleSubmit( {email: this.state.email, password: this.state.password } ) }
                                 >
                                     Sign in
-                                </Button>
+                                </Button> <br />
+
+                                {this.state.error}
                             </Paper>
     
                         </Grid>

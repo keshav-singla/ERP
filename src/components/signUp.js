@@ -20,6 +20,9 @@ import { createdUser } from '../actions/createUser'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 
+// React components
+import Topbar from './bar';
+
 class Signup extends React.Component {
     constructor(props) {
         super(props)
@@ -31,7 +34,7 @@ class Signup extends React.Component {
             email: '',
             password: '',
             confirmPassword: '',
-            error: ''
+            error: '',
         }
     }
 
@@ -49,21 +52,21 @@ class Signup extends React.Component {
         if (this.validation()) {
             this.props.createdUser(userData)
             fire.auth().createUserWithEmailAndPassword(userData.email, userData.password)
+                // Response of API
                 .then(response => {
+                    console.log(response);
+                    console.log(response.user);
                     this.setState = ({
                         error: ''
                     })
-                    // Response of API
-                    console.log(response);
-                    console.log(response.user);
                 })
-                .catch( (error) => {
-                    // Handle Errors here.
-                    // var errorCode = error.code;
+
+                // Handle Errors here.
+                .catch((error) => {
                     var errorMessage = error.message;
 
                     this.setState = ({
-                        error : errorMessage
+                        error: errorMessage
                     })
                 });
         }
@@ -101,170 +104,182 @@ class Signup extends React.Component {
 
     render() {
         return (
-                <div>
+            <div>
+
+                <Grid
+                    container
+                    spacing={50}
+                >
 
                     <Grid
-                        container
-                        spacing={50}
+                        item xs={12}
                     >
-                        <Grid
-                            item xs={3}
-                        >
-                        </Grid>
+                        <Topbar
+                        
+                        />
+                        
+                    </Grid>
 
-                        <Grid
-                            item xs={6}
-                        >
-                            <Paper style={{ padding: 20 }} >
+                    <Grid
+                        item xs={3}
+                    >
+                    </Grid>
 
-                                <TextField
-                                    label="First Name"
-                                    style={{ margin: 8 }}
-                                    placeholder="First Name"
-                                    name='firstName'
-                                    onChange={this.handleChange}
-                                    fullWidth
-                                    margin="dense"
-                                    autoComplete='off'
-                                    InputProps={{
-                                        shrink: true,
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <PersonPinTwoToneIcon color='primary' />
-                                            </InputAdornment>
-                                        )
-                                    }}
-                                /> <br />
+                    <Grid
+                        item xs={6}
+                    >
+                        <Paper style={{ padding: 20 }} >
 
-                                <TextField
-                                    label="Last Name"
-                                    style={{ margin: 8 }}
-                                    placeholder="Last Name"
-                                    name='lastName'
-                                    onChange={this.handleChange}
-                                    fullWidth
-                                    margin="dense"
-                                    autoComplete='off'
-                                    InputProps={{
-                                        shrink: true,
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <PersonPinTwoToneIcon color='primary' />
-                                            </InputAdornment>
-                                        )
-                                    }}
-                                /> <br />
+                            <TextField
+                                label="First Name"
+                                style={{ margin: 8 }}
+                                placeholder="First Name"
+                                name='firstName'
+                                onChange={this.handleChange}
+                                fullWidth
+                                margin="dense"
+                                autoComplete='off'
+                                InputProps={{
+                                    shrink: true,
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <PersonPinTwoToneIcon color='primary'/>
+                                        </InputAdornment>
+                                    )
+                                }}
+                            /> <br />
 
-                                <TextField
-                                    label="Username"
-                                    style={{ margin: 8 }}
-                                    placeholder="Username"
-                                    name='username'
-                                    onChange={this.handleChange}
-                                    fullWidth
-                                    margin="dense"
-                                    // variant='outlined'
-                                    autoComplete='off'
-                                    InputProps={{
-                                        shrink: true,
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <AccountCircleTwoToneIcon color='primary' />
-                                            </InputAdornment>
-                                        )
-                                    }}
-                                /> <br />
+                            <TextField
+                                label="Last Name"
+                                style={{ margin: 8 }}
+                                placeholder="Last Name"
+                                name='lastName'
+                                onChange={this.handleChange}
+                                fullWidth
+                                margin="dense"
+                                autoComplete='off'
+                                InputProps={{
+                                    shrink: true,
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <PersonPinTwoToneIcon color='primary'/>
+                                        </InputAdornment>
+                                    )
+                                }}
+                            /> <br />
 
-                                <TextField
-                                    label="Email"
-                                    style={{ margin: 8 }}
-                                    placeholder="xyz@example.com"
-                                    name='email'
-                                    onChange={this.handleChange}
-                                    fullWidth
-                                    margin="dense"
-                                    autoComplete='off'
-                                    InputProps={{
-                                        shrink: true,
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <EmailTwoToneIcon color='primary' />
-                                            </InputAdornment>
-                                        )
-                                    }}
-                                /> <br />
+                            <TextField
+                                label="Username"
+                                style={{ margin: 8 }}
+                                placeholder="Username"
+                                name='username'
+                                onChange={this.handleChange}
+                                fullWidth
+                                margin="dense"
+                                // variant='outlined'
+                                autoComplete='off'
+                                InputProps={{
+                                    shrink: true,
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <AccountCircleTwoToneIcon color= 'primary'/>
+                                        </InputAdornment>
+                                    )
+                                }}
+                            /> <br />
 
-                                <TextField
-                                    label="Password"
-                                    style={{ margin: 8 }}
-                                    placeholder="Password"
-                                    name='password'
-                                    type='password'
-                                    onChange={this.handleChange}
-                                    fullWidth
-                                    margin="dense"
-                                    autoComplete='off'
-                                    InputProps={{
-                                        shrink: true,
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <LockOpenTwoToneIcon color='primary' />
-                                            </InputAdornment>
-                                        )
-                                    }}
-                                /> <br />
+                            <TextField
+                                label="Email"
+                                style={{ margin: 8 }}
+                                placeholder="xyz@example.com"
+                                name='email'
+                                onChange={this.handleChange}
+                                fullWidth
+                                margin="dense"
+                                autoComplete='off'
+                                InputProps={{
+                                    shrink: true,
+                                    startAdornment: (
+                                        <InputAdornment position= "start" >
+                                            <EmailTwoToneIcon color= 'primary'/>
+                                        </InputAdornment>
+                                    )
+                                }}
+                            /> <br />
 
-                                <TextField
-                                    label="Confirm Password"
-                                    style={{ margin: 8 }}
-                                    placeholder="Confirm Password"
-                                    name='confirmPassword'
-                                    type='password'
-                                    onChange={this.handleChange}
-                                    fullWidth
-                                    margin="dense"
-                                    autoComplete='off'
-                                    InputProps={{
-                                        shrink: true,
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <LockOpenTwoToneIcon color='primary' />
-                                            </InputAdornment>
-                                        )
-                                    }}
-                                /> <br />
+                            <TextField
+                                label="Password"
+                                style={{ margin: 8 }}
+                                placeholder="Password"
+                                name='password'
+                                type='password'
+                                onChange={this.handleChange}
+                                fullWidth
+                                margin="dense"
+                                autoComplete='off'
+                                InputProps={{
+                                    shrink: true,
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <LockOpenTwoToneIcon color='primary'/>
+                                        </InputAdornment>
+                                    )
+                                }}
+                            /> <br />
 
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={() => this.handleSubmit({ email: this.state.email, password: this.state.password })}
-                                >
-                                    Sign up
-                                </Button> <br />
-                                
-                                    Already have an Account ? Login
-                                    <br />
-                                    <br />
+                            <TextField
+                                label="Confirm Password"
+                                style={{ margin: 8 }}
+                                placeholder="Confirm Password"
+                                name='confirmPassword'
+                                type='password'
+                                onChange={this.handleChange}
+                                fullWidth
+                                margin="dense"
+                                autoComplete='off'
+                                InputProps={{
+                                    shrink: true,
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <LockOpenTwoToneIcon color='primary'/>
+                                        </InputAdornment>
+                                    )
+                                }}
+                            /> <br />
+
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() => this.handleSubmit({ email: this.state.email, password: this.state.password })}
+                            >
+                                Sign up
+                            </Button> 
+                            <br />
+                            <br />
+
+                            Already have an Account ? Login
+                            <br />
+                            <br />
                             {this.state.error}
 
-                            </Paper>
-
-                        </Grid>
-
-                        <Grid
-                            item xs={3}
-                        >
-                        </Grid>
+                        </Paper>
 
                     </Grid>
 
-                </div>
+                    <Grid
+                        item xs={3}
+                    >
+                    </Grid>
+
+                </Grid>
+
+            </div>
         )
     }
 }
 
-function mapDispatchToProps (dispatch){
-    return bindActionCreators( {createdUser}, dispatch )
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ createdUser }, dispatch)
 }
 
-export default connect( ()=>{} , mapDispatchToProps ) (Signup);
+export default connect(() => { }, mapDispatchToProps)(Signup);
