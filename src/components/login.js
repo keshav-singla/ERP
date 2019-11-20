@@ -42,10 +42,12 @@ class Login extends React.Component {
             this.setState ({
                 error : errorMessage
             })
+
             console.log(errorCode);
             console.log(this.state.error);
           });
 
+          
     }
 
     render() {
