@@ -114,15 +114,14 @@ class Signup extends React.Component {
                     <Grid
                         item xs={12}
                     >
-                        <Topbar
-                        
-                        />
+                        <Topbar />
                         
                     </Grid>
 
                     <Grid
                         item xs={3}
                     >
+
                     </Grid>
 
                     <Grid
@@ -253,13 +252,16 @@ class Signup extends React.Component {
                                 onClick={() => this.handleSubmit({ email: this.state.email, password: this.state.password })}
                             >
                                 Sign up
-                            </Button> 
+                            </Button>
+
                             <br />
                             <br />
 
                             Already have an Account ? Login
+
                             <br />
                             <br />
+                            
                             {this.state.error}
 
                         </Paper>
