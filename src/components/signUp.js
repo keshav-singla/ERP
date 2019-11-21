@@ -226,7 +226,7 @@ class Signup extends React.Component {
                             <TextField
                                 label="Confirm Password"
                                 style={{ margin: 8 }}
-                                placeholder="Confirm Password"
+                                placeholder = 'Confirm Password'
                                 name='confirmPassword'
                                 type='password'
                                 onChange={this.handleChange}
@@ -253,12 +253,11 @@ class Signup extends React.Component {
 
                             <br />
                             <br />
-                            
+
                             <Router>
                             <Link to="/login"> Already have an Account ? Login </Link>
                             </Router>
 
-                            <br />
                             <br />
 
                             {this.state.error}
