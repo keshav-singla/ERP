@@ -18,7 +18,8 @@ class Dashboard extends React.Component {
         fire.auth().signOut()
             .then(res => {
                 // Sign-out successful.
-                console.log('User Signed Out');                
+                console.log('User Signed Out');
+                console.log(res);
             })
             
             .catch( (error) => {

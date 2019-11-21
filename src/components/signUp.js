@@ -23,7 +23,7 @@ import { connect } from 'react-redux'
 import Topbar from './bar';
 
 //React-Router
-// import {BrowserRouter as Router, Link} from 'react-router-dom'
+import {BrowserRouter as Router, Link} from 'react-router-dom'
 
 class Signup extends React.Component {
     constructor(props) {
@@ -54,6 +54,7 @@ class Signup extends React.Component {
         if (this.validation()) {
             this.props.createdUser(userData)
             fire.auth().createUserWithEmailAndPassword(userData.email, userData.password)
+
             // Response of API
             .then(response => {
                 console.log(response);
@@ -86,6 +87,7 @@ class Signup extends React.Component {
 
     validation = () => {
         console.log(this.state)
+
         if (this.formEmpty(this.state)) {
             this.setState({
                 error: 'All feilds are mandatory to be filled'
@@ -124,11 +126,10 @@ class Signup extends React.Component {
                         item xs={6}
                     >
                         <Paper style={{ padding: 20 }} >
-
-                            <TextField
-                                label="First Name"
+                                <TextField
+                                label='First Name'
                                 style={{ margin: 8 }}
-                                placeholder="First Name"
+                                placeholder='First Name'
                                 name='firstName'
                                 onChange={this.handleChange}
                                 fullWidth
@@ -145,9 +146,9 @@ class Signup extends React.Component {
                             /> <br />
 
                             <TextField
-                                label="Last Name"
+                                label='Last Name'
                                 style={{ margin: 8 }}
-                                placeholder="Last Name"
+                                placeholder='Last Name'
                                 name='lastName'
                                 onChange={this.handleChange}
                                 fullWidth
@@ -168,10 +169,10 @@ class Signup extends React.Component {
                                 style={{ margin: 8 }}
                                 placeholder="Username"
                                 name='username'
+                                type = 'text'
                                 onChange={this.handleChange}
                                 fullWidth
                                 margin="dense"
-                                // variant='outlined'
                                 autoComplete='off'
                                 InputProps={{
                                     shrink: true,
@@ -253,15 +254,15 @@ class Signup extends React.Component {
                             <br />
                             <br />
                             
-                            {/* <Router>
-                            <Link to="/login">Already have an Account ? Login</Link>
-                            </Router> */}
+                            <Router>
+                            <Link to="/login"> Already have an Account ? Login </Link>
+                            </Router>
 
                             <br />
                             <br />
 
                             {this.state.error}
-
+                            
                         </Paper>
 
                     </Grid>

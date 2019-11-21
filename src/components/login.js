@@ -27,7 +27,7 @@ class Login extends React.Component {
         this.state = {
             email: '',
             password : '',
-            error: ''
+            error: '',
         }
     }
 
@@ -40,6 +40,7 @@ class Login extends React.Component {
         fire.auth().signInWithEmailAndPassword(userData.email, userData.password)
         .then(response => {
             console.log(response);
+            console.log(response.data);
             console.log(response.user);
             console.log(response.user.refreshToken);
             
@@ -57,7 +58,7 @@ class Login extends React.Component {
             var errorMessage = error.message;
             
             this.setState ({
-                error : errorMessage
+                error : errorMessage,
             })
 
             console.log(errorCode);
@@ -95,7 +96,7 @@ class Login extends React.Component {
                                     margin="dense"
                                     autoComplete='off'
                                     InputProps={{
-                                        shrink: true,
+                                        shrink: true,                      
                                         startAdornment: (
                                             <InputAdornment position="start">
                                                 <AccountCircleIcon color='primary' />
@@ -132,10 +133,6 @@ class Login extends React.Component {
                                     Sign in
                                 </Button> <br />
 
-                                {/* <Router>
-                                <Link to="/">New Member? Sign up </Link>
-                                </Router> */}
-
                                 {this.state.error}
                             </Paper>
     
@@ -156,4 +153,4 @@ function mapDispatchToProps (dispatch) {
     return bindActionCreators( {userSignIn}, dispatch )
 }
 
-export default connect( () => {} , mapDispatchToProps ) (Login);
+export default connect( () => {}, mapDispatchToProps ) (Login);
