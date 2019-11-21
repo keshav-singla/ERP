@@ -4,11 +4,15 @@ const user_reducer =( state=[], action ) => {
     switch(action.type){
         case 'USERCREATED':
             console.log(state);
-            console.log();
+            console.log(action.payload);
+            
+            return state
+        case 'SIGNIN':
+            console.log(state);
+            console.log(action.payload);
             
             return state
 
-            
         default :
             return state;
     }

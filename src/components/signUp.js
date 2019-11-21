@@ -1,9 +1,8 @@
 import React from 'react';
 
-// Material UI core
+// Material-UI core
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid, Paper, Button } from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 //Icons
@@ -15,13 +14,16 @@ import LockOpenTwoToneIcon from '@material-ui/icons/LockOpenTwoTone';
 //Firebase
 import fire from '../config.js/fireBaseConfiguration'
 
-// Redux
+//Redux
 import { createdUser } from '../actions/createUser'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 
-// React components
+//React components
 import Topbar from './bar';
+
+//React-Router
+// import {BrowserRouter as Router, Link} from 'react-router-dom'
 
 class Signup extends React.Component {
     constructor(props) {
@@ -52,23 +54,22 @@ class Signup extends React.Component {
         if (this.validation()) {
             this.props.createdUser(userData)
             fire.auth().createUserWithEmailAndPassword(userData.email, userData.password)
-                // Response of API
-                .then(response => {
-                    console.log(response);
-                    console.log(response.user);
-                    this.setState = ({
-                        error: ''
-                    })
+            // Response of API
+            .then(response => {
+                console.log(response);
+                console.log(response.user);
+                this.setState = ({
+                    error: ''
                 })
+            })
 
-                // Handle Errors here.
-                .catch((error) => {
-                    var errorMessage = error.message;
-
-                    this.setState = ({
-                        error: errorMessage
-                    })
-                });
+            // Handle Errors here.
+            .catch((error) => {
+                var errorMessage = error.message;
+                this.setState = ({
+                    error: errorMessage
+                })
+            });
         }
     }
 
@@ -105,23 +106,18 @@ class Signup extends React.Component {
     render() {
         return (
             <div>
-
                 <Grid
                     container
                     spacing={50}
                 >
 
-                    <Grid
-                        item xs={12}
-                    >
+                    <Grid item xs={12}>
                         <Topbar />
-                        
                     </Grid>
 
                     <Grid
                         item xs={3}
                     >
-
                     </Grid>
 
                     <Grid
@@ -249,19 +245,21 @@ class Signup extends React.Component {
                             <Button
                                 variant="contained"
                                 color="primary"
-                                onClick={() => this.handleSubmit({ email: this.state.email, password: this.state.password })}
+                                onClick={() => this.handleSubmit({ name: `${this.state.firstName}${this.state.lastName}`, email: this.state.email, password: this.state.password })}
                             >
                                 Sign up
                             </Button>
 
                             <br />
                             <br />
-
-                            Already have an Account ? Login
-
-                            <br />
-                            <br />
                             
+                            {/* <Router>
+                            <Link to="/login">Already have an Account ? Login</Link>
+                            </Router> */}
+
+                            <br />
+                            <br />
+
                             {this.state.error}
 
                         </Paper>
@@ -274,7 +272,6 @@ class Signup extends React.Component {
                     </Grid>
 
                 </Grid>
-
             </div>
         )
     }
@@ -284,4 +281,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ createdUser }, dispatch)
 }
 
-export default connect(() => { }, mapDispatchToProps)(Signup);
+export default connect( () => {} , mapDispatchToProps) (Signup);

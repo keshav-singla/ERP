@@ -13,6 +13,14 @@ import LockOpenTwoToneIcon from '@material-ui/icons/LockOpenTwoTone';
 //Firebase
 import fire from '../config.js/fireBaseConfiguration'
 
+//Redux
+import { userSignIn } from '../actions/createUser'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
+
+//React-router
+// import { BrowserRouter as Link, Router } from 'react-router-dom'
+
 class Login extends React.Component {
     constructor() {
         super()
@@ -31,10 +39,15 @@ class Login extends React.Component {
     handleSubmit = (userData) => {
         fire.auth().signInWithEmailAndPassword(userData.email, userData.password)
         .then(response => {
+            console.log(response);
             console.log(response.user);
+            console.log(response.user.refreshToken);
+            
             this.setState ({
                 error :''
             })
+        this.props.userSignIn(response.user.refreshToken)
+
         })
        
         
@@ -50,8 +63,6 @@ class Login extends React.Component {
             console.log(errorCode);
             console.log(this.state.error);
           });
-
-
     }
 
     render() {
@@ -73,7 +84,7 @@ class Login extends React.Component {
                             item xs={6} 
                         >
                             <Paper style={{ padding: 20 }} >
-  
+
                                 <TextField
                                     label="E-mail"
                                     style={{ margin: 8 }}
@@ -94,7 +105,7 @@ class Login extends React.Component {
                                 /> <br />
 
                                 <TextField
-                                    label="Password"
+                                    label = 'Password'
                                     style={{ margin: 8 }}
                                     placeholder="Password"
                                     name='password'
@@ -116,10 +127,14 @@ class Login extends React.Component {
                                 <Button
                                     variant="contained"
                                     color = 'primary'
-                                    onClick = { () => this.handleSubmit( {email: this.state.email, password: this.state.password } ) }
+                                    onClick = { () => this.handleSubmit( {email: this.state.email, password: this.state.password} ) }
                                 >
                                     Sign in
                                 </Button> <br />
+
+                                {/* <Router>
+                                <Link to="/">New Member? Sign up </Link>
+                                </Router> */}
 
                                 {this.state.error}
                             </Paper>
@@ -137,4 +152,8 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+function mapDispatchToProps (dispatch) {
+    return bindActionCreators( {userSignIn}, dispatch )
+}
+
+export default connect( () => {} , mapDispatchToProps ) (Login);

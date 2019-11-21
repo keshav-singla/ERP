@@ -7,3 +7,11 @@ export const createdUser = ( userData ) => {
         payload: userData   
     };
 }
+
+export const userSignIn = (signedInData) => {
+    console.log(signedInData);
+    return {
+        type: 'SIGNIN',
+        payload : signedInData
+    }
+}
