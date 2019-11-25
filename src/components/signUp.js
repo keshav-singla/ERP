@@ -17,7 +17,7 @@ import LockOpenTwoToneIcon from '@material-ui/icons/LockOpenTwoTone';
 import fire from '../config.js/fireBaseConfiguration'
 
 //Redux
-import { createdUser } from '../actions/createUser'
+import { createdUser } from '../actions/userAction'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 
@@ -247,7 +247,7 @@ class Signup extends React.Component {
                             <Button
                                 variant="contained"
                                 color="primary"
-                                onClick={() => this.handleSubmit({ name: `${this.state.firstName}${this.state.lastName}`, email: this.state.email, password: this.state.password })}
+                                onClick={() => this.handleSubmit({ name:`${this.state.firstName}${this.state.lastName}`, email: this.state.email, password: this.state.password })}
                             >
                                 Sign up
                             </Button>
@@ -256,7 +256,6 @@ class Signup extends React.Component {
                             
                             <Link to="/"> Already have an Account ? Login </Link>
                             
-
                             <br />
 
                             {this.state.error}
@@ -276,16 +275,16 @@ class Signup extends React.Component {
     }
 }
 
-// Disptaching the data into actions
+// Disptaching the data into Reducer
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ createdUser }, dispatch)
 }
 
 // Accesing the Redux Store
-function mapStateToProps(state) {
-    return {
-        task: state.user
-    }
-}
+// function mapStateToProps(state) {
+//     return {
+//         task: state.user
+//     }
+// }
 
-export default connect( mapStateToProps , mapDispatchToProps) (Signup);
+export default connect( () => {} , mapDispatchToProps) (Signup);

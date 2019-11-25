@@ -5,8 +5,6 @@ import reducer from "../reducer/reducerIndex";
 
 const initialState = {};
 
-
-
 const configureStore  = (browserHistory) => {
 
   let middleware = [

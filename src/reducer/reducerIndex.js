@@ -5,7 +5,6 @@ const user_reducer =( state=[], action ) => {
         case 'USERCREATED':
             state = action.payload
             console.log(state);
-            
             return state
 
         case 'SIGNIN':

@@ -15,7 +15,7 @@ import LockOpenTwoToneIcon from '@material-ui/icons/LockOpenTwoTone';
 import fire from '../config.js/fireBaseConfiguration'
 
 //Redux
-import { userSignIn } from '../actions/createUser'
+import { userSignIn } from '../actions/userAction'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 
@@ -42,37 +42,28 @@ class Login extends React.Component {
 
     handleSubmit = (userData) => {
         fire.auth().signInWithEmailAndPassword(userData.email, userData.password)
-
             // Response of the API
             .then(response => {
-                console.log(response);
-                console.log(response.user);
-                console.log(response.user.refreshToken);
-
                 this.setState({
-                    error: ''
+                    error : ''
                 })
+                localStorage.setItem('Refresh_Token', response.user.refreshToken);
                 this.props.userSignIn(response.user.refreshToken)
-
+                this.props.history.push(`home`);
             })
 
-
-            .catch((error) => {
-                // Handle Errors here.
-                var errorCode = error.code;
+            // Handle errors of the API
+            .catch((error) => {    
                 var errorMessage = error.message;
-
                 this.setState({
                     error: errorMessage,
                 })
-
-                console.log(errorCode);
-                console.log(this.state.error);
+                console.log(error.code);
             });
     }
 
     render() {
-        console.log(this.props.task);
+        console.log(this.props.token);
         return (
             <div>
 
@@ -88,9 +79,7 @@ class Login extends React.Component {
                     <Grid
                         item xs={3}
                     >
-
                     </Grid>
-
 
                     <Grid
                         item xs={6}
@@ -142,11 +131,10 @@ class Login extends React.Component {
                                 onClick={() => this.handleSubmit({ email: this.state.email, password: this.state.password })}
                             >
                                 Sign in
-                                </Button> <br />
+                            </Button> 
+                            <br />
 
-                         
                             <Link to="/signup"> New User? Signup </Link>
-                      
 
                             <br />
 
@@ -166,13 +154,15 @@ class Login extends React.Component {
     }
 }
 
+// Dispatching the data into Reducer
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ userSignIn }, dispatch)
 }
 
+// Accesing the Redux Store
 function mapStateToProps(state) {
     return {
-        task: state.user
+        token: state.user
     }
 }
 
