@@ -4,28 +4,31 @@ import Signup from './components/signUp';
 import Login from './components/login';
 import Dashboard from './components/userHome';
 
-//React-Router
-import { BrowserRouter as Router, Switch, Route  } from "react-router-dom";
+// React-Router
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+// Redux
+import { Provider } from 'react-redux'
+import configureStore from "./store";
+import createHistory from 'history/createBrowserHistory';
+
+const history = createHistory() // <-- createHistory() call
+
+const store = configureStore(history) 
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-       <Switch>
-        <Route eaxctpath="/">
-          {/* <Dashboard /> */}
-          {/* <Login /> */}
-          <Signup />
-        </Route>
-        <Route exact path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/home">
-          <Dashboard />
-        </Route>
-      </Switch> 
-      </div>
-    </Router>
+    <div className="App" >
+      <Provider store={store}>
+      <Router history={history}>
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route exact path="/signup/" component={Signup} />
+          <Route exact path="/home/" component={Dashboard} />
+        </Switch>
+      </Router>
+    </Provider>
+    </div>
   );
 }
 

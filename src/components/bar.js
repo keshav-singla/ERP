@@ -1,7 +1,7 @@
 import React from 'react'
 
 //Material Ui
-import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core'
+import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core'
 
 //Icons
 import MenuIcon from '@material-ui/icons/Menu';
@@ -29,7 +29,6 @@ class Topbar extends React.Component {
                         <Typography variant="h5" noWrap>
                             ERP System
                         </Typography>
-                        <Button color="inherit">Login</Button>
                     </Toolbar>
 
                 </AppBar>

@@ -2,7 +2,9 @@ import React from 'react';
 
 // Material-UI core
 import TextField from '@material-ui/core/TextField';
-import { Grid, Paper, Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 //Icons
@@ -23,13 +25,12 @@ import { connect } from 'react-redux'
 import Topbar from './bar';
 
 //React-Router
-import {BrowserRouter as Router, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 class Signup extends React.Component {
     constructor(props) {
         super(props)
-
-        this.state = {
+        this.state ={
             firstName: '',
             lastName: '',
             username: '',
@@ -87,7 +88,6 @@ class Signup extends React.Component {
 
     validation = () => {
         console.log(this.state)
-
         if (this.formEmpty(this.state)) {
             this.setState({
                 error: 'All feilds are mandatory to be filled'
@@ -106,6 +106,7 @@ class Signup extends React.Component {
     }
 
     render() {
+        console.log(this.props.task);
         return (
             <div>
                 <Grid
@@ -252,11 +253,9 @@ class Signup extends React.Component {
                             </Button>
 
                             <br />
-                            <br />
-
-                            <Router>
-                            <Link to="/login"> Already have an Account ? Login </Link>
-                            </Router>
+                            
+                            <Link to="/"> Already have an Account ? Login </Link>
+                            
 
                             <br />
 
@@ -277,8 +276,16 @@ class Signup extends React.Component {
     }
 }
 
+// Disptaching the data into actions
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ createdUser }, dispatch)
 }
 
-export default connect( () => {} , mapDispatchToProps) (Signup);
+// Accesing the Redux Store
+function mapStateToProps(state) {
+    return {
+        task: state.user
+    }
+}
+
+export default connect( mapStateToProps , mapDispatchToProps) (Signup);
