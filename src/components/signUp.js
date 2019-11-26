@@ -88,7 +88,7 @@ class Signup extends React.Component {
     }
 
     validation = () => {
-        if (this.formEmpty(this.state)){
+        if (this.state){
             this.setState({
                 error: 'All feilds are mandatory to be filled'
             })
@@ -109,11 +109,6 @@ class Signup extends React.Component {
         console.log(this.props.task);
         return (
             <div>
-
-                <div >
-                    hello
-                </div>
-
                 <Grid
                     container
                     spacing={50}
@@ -132,7 +127,8 @@ class Signup extends React.Component {
                         item xs={6}
                     >
                         <Paper style={{padding: 20}} >
-                                <TextField
+                            
+                            <TextField
                                 label='First Name'
                                 style={{ margin: 8 }}
                                 placeholder='First Name'

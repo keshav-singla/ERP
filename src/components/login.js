@@ -77,12 +77,12 @@ class Login extends React.Component {
                     </Grid>
 
                     <Grid
-                        item xs={3}
+                        item xs={4}
                     >
                     </Grid>
 
                     <Grid
-                        item xs={6}
+                        item xs={4}
                     >
                         <Paper style={{ padding: 20 }}>
 
@@ -126,7 +126,7 @@ class Login extends React.Component {
                             /> <br />
 
                             <Button
-                                variant="contained"
+                                variant='contained'
                                 color='primary'
                                 onClick={() => this.handleSubmit({ email: this.state.email, password: this.state.password })}
                             >
@@ -143,7 +143,7 @@ class Login extends React.Component {
 
                     </Grid>
 
-                    <Grid item xs={3} >
+                    <Grid item xs={4} >
 
                     </Grid>
                     
