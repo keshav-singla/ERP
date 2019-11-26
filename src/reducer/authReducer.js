@@ -8,13 +8,22 @@ const initialState = {
 };
 
 const auth_reducer = (initialState, action) => {
-    switch(action.type){
-        case 'USERCREATED':
-            return initialState 
+    console.log(initialState);
+    switch(action.type){    
+        case 'AUTH_LOGIN_USER_REQ':
+            return initialState;
         
-        default : 
-            return initialState ;    
+        case 'AUTH_LOGIN_USER_SUCESS':
+            return initialState;
 
+        case 'AUTH_LOGIN_USER_FAILURE':
+            return initialState;
+
+        case 'AUTH_LOGOUT_USER':
+            return initialState;
+        
+        default:
+            return initialState ;
         }
 }
 

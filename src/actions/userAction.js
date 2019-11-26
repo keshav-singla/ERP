@@ -35,7 +35,7 @@ export const authLoginUserSucess = (token) => {
 
 export const authLoginUserFailure = (token) => {
     return {
-        type : 'AUTH_LOGIN_USER_Failure',
+        type : 'AUTH_LOGIN_USER_FAILURE',
         payload : token
     }
 }

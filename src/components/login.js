@@ -84,7 +84,7 @@ class Login extends React.Component {
                     <Grid
                         item xs={6}
                     >
-                        <Paper style={{ padding: 20 }} >
+                        <Paper style={{ padding: 20 }}>
 
                             <TextField
                                 label="E-mail"
@@ -134,7 +134,7 @@ class Login extends React.Component {
                             </Button> 
                             <br />
 
-                            <Link to="/signup"> New User? Signup </Link>
+                            <Link to="/signup"> New User?Signup </Link>
 
                             <br />
 
@@ -146,7 +146,7 @@ class Login extends React.Component {
                     <Grid item xs={3} >
 
                     </Grid>
-
+                    
                 </Grid>
 
             </div>

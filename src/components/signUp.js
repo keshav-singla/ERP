@@ -47,7 +47,7 @@ class Signup extends React.Component {
 
     handleChange = (e) => {
         e.preventDefault()
-        this.setState({ [e.target.name]: e.target.value })
+        this.setState({ [e.target.name] : e.target.value })
     }
 
     handleSubmit = (userData) => {
@@ -63,13 +63,14 @@ class Signup extends React.Component {
                 this.setState = ({
                     error: ''
                 })
+                this.props.history.push(`/`);
             })
 
             // Handle Errors here.
             .catch((error) => {
                 var errorMessage = error.message;
                 this.setState = ({
-                    error: errorMessage
+                    error: errorMessage,
                 })
             });
         }
@@ -87,8 +88,7 @@ class Signup extends React.Component {
     }
 
     validation = () => {
-        console.log(this.state)
-        if (this.formEmpty(this.state)) {
+        if (this.formEmpty(this.state)){
             this.setState({
                 error: 'All feilds are mandatory to be filled'
             })
@@ -109,6 +109,11 @@ class Signup extends React.Component {
         console.log(this.props.task);
         return (
             <div>
+
+                <div >
+                    hello
+                </div>
+
                 <Grid
                     container
                     spacing={50}
@@ -126,7 +131,7 @@ class Signup extends React.Component {
                     <Grid
                         item xs={6}
                     >
-                        <Paper style={{ padding: 20 }} >
+                        <Paper style={{padding: 20}} >
                                 <TextField
                                 label='First Name'
                                 style={{ margin: 8 }}
@@ -174,7 +179,7 @@ class Signup extends React.Component {
                                 onChange={this.handleChange}
                                 fullWidth
                                 margin="dense"
-                                autoComplete='off'
+                                autoComplete = 'off'
                                 InputProps={{
                                     shrink: true,
                                     startAdornment: (
@@ -245,7 +250,7 @@ class Signup extends React.Component {
                             /> <br />
 
                             <Button
-                                variant="contained"
+                                // variant="contained"
                                 color="primary"
                                 onClick={() => this.handleSubmit({ name:`${this.state.firstName}${this.state.lastName}`, email: this.state.email, password: this.state.password })}
                             >
@@ -254,7 +259,7 @@ class Signup extends React.Component {
 
                             <br />
                             
-                            <Link to="/"> Already have an Account ? Login </Link>
+                            <Link to="/"> Already have an Account? Login </Link>
                             
                             <br />
 
