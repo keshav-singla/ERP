@@ -88,7 +88,7 @@ class Signup extends React.Component {
     }
 
     validation = () => {
-        if (this.state){
+        if (this.formEmpty(this.state)){
             this.setState({
                 error: 'All feilds are mandatory to be filled'
             })
@@ -180,7 +180,7 @@ class Signup extends React.Component {
                                     shrink: true,
                                     startAdornment: (
                                         <InputAdornment position="start">
-                                            <AccountCircleTwoToneIcon color= 'primary'/>
+                                            <AccountCircleTwoToneIcon color= 'primary' />
                                         </InputAdornment>
                                     )
                                 }}
