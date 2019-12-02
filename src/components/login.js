@@ -12,12 +12,12 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockOpenTwoToneIcon from '@material-ui/icons/LockOpenTwoTone';
 
 //Firebase
-import fire from '../config.js/fireBaseConfiguration'
+import fire from '../config.js/fireBaseConfiguration';
 
 //Redux
-import { userSignIn } from '../actions/userAction'
+import { userSignIn } from '../actions/userAction';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 //React components
 import Topbar from './bar';
@@ -87,18 +87,18 @@ class Login extends React.Component {
                         <Paper style={{ padding: 20 }}>
 
                             <TextField
-                                label="E-mail"
+                                label='E-mail'
                                 style={{ margin: 8 }}
-                                placeholder="xyz@gmail.com"
+                                placeholder= 'abc@gmail.com'
                                 name='email'
                                 onChange={this.handleChange}
                                 fullWidth
-                                margin="dense"
+                                margin='dense'
                                 autoComplete='off'
                                 InputProps={{
                                     shrink: true,
                                     startAdornment: (
-                                        <InputAdornment position="start">
+                                        <InputAdornment position='start'>
                                             <AccountCircleIcon color='primary' />
                                         </InputAdornment>
                                     )
@@ -106,19 +106,19 @@ class Login extends React.Component {
                             /> <br />
 
                             <TextField
-                                label='Password'
-                                style={{ margin: 8 }}
-                                placeholder="Password"
-                                name='password'
-                                type='password'
-                                onChange={this.handleChange}
+                                label= 'Password'
+                                style= {{ margin: 8 }}
+                                placeholder= 'Password'
+                                name= 'password'
+                                type= 'password'
+                                onChange= {this.handleChange}
                                 fullWidth
-                                margin="dense"
-                                autoComplete='off'
+                                margin= 'densedense'
+                                autoComplete= 'off'
                                 InputProps={{
                                     shrink: true,
                                     startAdornment: (
-                                        <InputAdornment position="start">
+                                        <InputAdornment position='start'>
                                             <LockOpenTwoToneIcon color='primary' />
                                         </InputAdornment>
                                     )
@@ -126,7 +126,6 @@ class Login extends React.Component {
                             /> <br />
 
                             <Button
-                                variant='contained'
                                 color='primary'
                                 onClick={() => this.handleSubmit({ email: this.state.email, password: this.state.password })}
                             >
@@ -134,7 +133,7 @@ class Login extends React.Component {
                             </Button> 
                             <br />
 
-                            <Link to="/signup"> New User?Signup </Link>
+                            <Link to='/signup'> New User?Signup </Link>
 
                             <br />
 

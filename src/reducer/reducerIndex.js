@@ -12,6 +12,11 @@ const user_reducer =( state=[], action ) => {
             console.log(state);
             return state
 
+        case 'SIGNOUT':
+            state = action.payload
+            console.log(state);
+            return state    
+        
         default :
             return state;
     }

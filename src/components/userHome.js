@@ -10,6 +10,11 @@ import fire from '../config.js/fireBaseConfiguration'
 import Topbar from './bar'
 import Grid from '@material-ui/core/Grid'
 
+//Redux
+import { userSignOut } from '../actions/userAction';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
 class Dashboard extends React.Component {
     constructor() {
         super()
@@ -23,9 +28,9 @@ class Dashboard extends React.Component {
             .then(res => {
                 console.log('User Signed Out');
             })
-
+            this.props.userSignOut()
             .catch((error) => {
-                // An error happened.
+                //An error happened.
             });
         this.props.history.push(`/`);
     }
@@ -52,4 +57,9 @@ class Dashboard extends React.Component {
     }
 }
 
-export default (Dashboard);
+// Dispatching the data into Reducer
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ userSignOut }, dispatch)
+}
+
+export default connect ( ()=> {}, mapDispatchToProps ) (Dashboard);

@@ -18,6 +18,14 @@ export const userSignIn = (signedInData) => {
     }
 }
 
+//Log out
+export const userSignOut = (signedOut) => {
+    return {
+        type : 'SIGNOUT',
+        payload : signedOut
+    }
+}
+
 // Authentication of User
 export const authLoginUserReq = (token) => {
     return {
