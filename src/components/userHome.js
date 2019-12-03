@@ -23,7 +23,7 @@ class Dashboard extends React.Component {
     }
 
     handleSignout = () => {
-        localStorage.removeItem("Refresh_Token")
+        // localStorage.removeItem("Refresh_Token")
         fire.auth().signOut()
             .then(res => {
                 console.log('User Signed Out');

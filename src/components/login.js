@@ -114,8 +114,8 @@ class Login extends React.Component {
                                 onChange= {this.handleChange}
                                 fullWidth
                                 margin= 'densedense'
-                                autoComplete= 'off'
-                                InputProps={{
+                                autoComplete='off'
+                                InputProps= {{
                                     shrink: true,
                                     startAdornment: (
                                         <InputAdornment position='start'>

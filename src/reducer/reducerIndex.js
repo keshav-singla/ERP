@@ -13,6 +13,7 @@ const user_reducer =( state=[], action ) => {
             return state
 
         case 'SIGNOUT':
+            localStorage.removeItem("Refresh_Token")
             state = action.payload
             console.log(state);
             return state    
