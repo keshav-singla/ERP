@@ -23,16 +23,18 @@ class Dashboard extends React.Component {
     }
 
     handleSignout = () => {
-        // localStorage.removeItem("Refresh_Token")
         fire.auth().signOut()
+        // Response
             .then(res => {
                 console.log('User Signed Out');
+                // localStorage.removeItem("Refresh_Token")
+                this.props.history.push(`/`);
+                this.props.userSignOut(null)
             })
-            this.props.userSignOut()
+        //An error happened.
             .catch((error) => {
-                //An error happened.
             });
-        this.props.history.push(`/`);
+
     }
 
     render() {
@@ -62,4 +64,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ userSignOut }, dispatch)
 }
 
-export default connect ( ()=> {}, mapDispatchToProps ) (Dashboard);
+export default connect ( ()=> {}, mapDispatchToProps) (Dashboard);

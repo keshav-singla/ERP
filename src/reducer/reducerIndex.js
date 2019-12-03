@@ -14,6 +14,7 @@ const user_reducer =( state=[], action ) => {
 
         case 'SIGNOUT':
             localStorage.removeItem("Refresh_Token")
+            // this.props.history.push(`/`);
             state = action.payload
             console.log(state);
             return state    

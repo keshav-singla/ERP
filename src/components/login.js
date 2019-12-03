@@ -90,16 +90,16 @@ class Login extends React.Component {
                                 label='E-mail'
                                 style={{ margin: 8 }}
                                 placeholder= 'abc@gmail.com'
-                                name='email'
+                                name= 'email'
                                 onChange={this.handleChange}
                                 fullWidth
                                 margin='dense'
                                 autoComplete='off'
-                                InputProps={{
+                                InputProps = {{
                                     shrink: true,
                                     startAdornment: (
-                                        <InputAdornment position='start'>
-                                            <AccountCircleIcon color='primary' />
+                                        <InputAdornment position='start' >
+                                            <AccountCircleIcon color= 'primary' />
                                         </InputAdornment>
                                     )
                                 }}
@@ -145,7 +145,7 @@ class Login extends React.Component {
                     <Grid item xs={4} >
 
                     </Grid>
-                    
+
                 </Grid>
 
             </div>
