@@ -1,4 +1,6 @@
 // ACTION TO BE PERFORMED ACCORDING TO THEIR TYPE
+import { push } from 'react-router-redux';
+
 
 // Sign-up
 export const createdUser = ( userData ) => {
@@ -19,10 +21,19 @@ export const userSignIn = (signedInData) => {
 }
 
 //Log out
-export const userSignOut = (signedOut) => {
+export function userLogout() {
+    localStorage.removeItem('token');
     return {
-        type : 'SIGNOUT',
-        payload : signedOut
+        type : 'SIGNOUT'
+    } 
+}
+
+export function userSignOut (redirect = '/') {
+    localStorage.removeItem("Refresh_Token")
+    return (dispatch, state) => {
+        dispatch(userLogout());
+        dispatch(push('/signup'));
+        return Promise.resolve();
     }
 }
 

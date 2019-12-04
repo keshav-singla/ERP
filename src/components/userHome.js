@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
                 console.log('User Signed Out');
                 // localStorage.removeItem("Refresh_Token")
                 this.props.history.push(`/`);
-                this.props.userSignOut(null)
+                this.props.userSignOut()
             })
         //An error happened.
             .catch((error) => {

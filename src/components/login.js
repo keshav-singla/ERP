@@ -103,7 +103,7 @@ class Login extends React.Component {
                                         </InputAdornment>
                                     )
                                 }}
-                            /> <br />
+                                /> <br />
 
                             <TextField
                                 label= 'Password'
@@ -130,7 +130,7 @@ class Login extends React.Component {
                                 onClick={() => this.handleSubmit({ email: this.state.email, password: this.state.password })}
                             >
                                 Sign in
-                            </Button> 
+                            </Button>
                             <br />
 
                             <Link to='/signup'> New User?Signup </Link>
