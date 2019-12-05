@@ -1,4 +1,5 @@
 import React from 'react'
+import { push } from 'react-router-redux'
 
 //Material-UI
 import TextField from '@material-ui/core/TextField';
@@ -11,13 +12,11 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockOpenTwoToneIcon from '@material-ui/icons/LockOpenTwoTone';
 
-//Firebase
-import fire from '../config.js/fireBaseConfiguration';
-
 //Redux
 import { userSignIn } from '../actions/userAction';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 
 //React components
 import Topbar from './bar';
@@ -30,8 +29,26 @@ class Login extends React.Component {
         super()
         this.state = {
             email: '',
-            password: '',
+            password:'',
             error: '',
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (
+            this.props.isAuthenticating &&
+            !nextProps.isAuthenticating &&
+            !nextProps.isAuthenticated
+        ) 
+        {
+            this.setState({ error: "Invalid username and/or password. Try again." });
+        } 
+        else if (
+            this.props.isAuthenticating &&
+            !nextProps.isAuthenticating &&
+            nextProps.isAuthenticated
+        ) {
+            this.props.dispatch(push("home"));
         }
     }
 
@@ -41,29 +58,11 @@ class Login extends React.Component {
     }
 
     handleSubmit = (userData) => {
-        fire.auth().signInWithEmailAndPassword(userData.email, userData.password)
-            // Response of the API
-            .then(response => {
-                this.setState({
-                    error : ''
-                })
-                localStorage.setItem('Refresh_Token', response.user.refreshToken);
-                this.props.userSignIn(response.user.refreshToken)
-                this.props.history.push(`home`);
-            })
-
-            // Handle errors of the API
-            .catch((error) => {    
-                var errorMessage = error.message;
-                this.setState({
-                    error: errorMessage,
-                })
-                console.log(error.code);
-            });
+        this.props.userSignIn(userData.email, userData.password)
     }
 
     render() {
-        console.log(this.props.token);
+        console.log(this.props);
         return (
             <div>
 
@@ -89,33 +88,33 @@ class Login extends React.Component {
                             <TextField
                                 label='E-mail'
                                 style={{ margin: 8 }}
-                                placeholder= 'abc@gmail.com'
-                                name= 'email'
+                                placeholder='abc@gmail.com'
+                                name='email'
                                 onChange={this.handleChange}
                                 fullWidth
                                 margin='dense'
                                 autoComplete='off'
-                                InputProps = {{
+                                InputProps={{
                                     shrink: true,
                                     startAdornment: (
                                         <InputAdornment position='start' >
-                                            <AccountCircleIcon color= 'primary' />
+                                            <AccountCircleIcon color='primary' />
                                         </InputAdornment>
                                     )
                                 }}
-                                /> <br />
+                            /> <br />
 
                             <TextField
-                                label= 'Password'
-                                style= {{ margin: 8 }}
-                                placeholder= 'Password'
-                                name= 'password'
-                                type= 'password'
-                                onChange= {this.handleChange}
+                                label='Password'
+                                style={{ margin: 8 }}
+                                placeholder='Password'
+                                name='password'
+                                type='password'
+                                onChange={this.handleChange}
                                 fullWidth
-                                margin= 'densedense'
+                                margin='densedense'
                                 autoComplete='off'
-                                InputProps= {{
+                                InputProps={{
                                     shrink: true,
                                     startAdornment: (
                                         <InputAdornment position='start'>
@@ -133,7 +132,7 @@ class Login extends React.Component {
                             </Button>
                             <br />
 
-                            <Link to='/signup'> New User?Signup </Link>
+                            <Link to = '/signup'> New User?Signup </Link>
 
                             <br />
 
@@ -154,15 +153,22 @@ class Login extends React.Component {
 }
 
 // Dispatching the data into Reducer
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ userSignIn }, dispatch)
-}
+const mapDispatchToProps = dispatch => {
+    return {
+      dispatch,
+      userSignIn: bindActionCreators(userSignIn, dispatch)
+    };
+  };
+
 
 // Accesing the Redux Store
 function mapStateToProps(state) {
     return {
-        token: state.user
+        token: state.user,
+        isAuthenticated: state.user,
+        isAuthenticating: state.user,
+
     }
 }
 
-export default connect( mapStateToProps, mapDispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))

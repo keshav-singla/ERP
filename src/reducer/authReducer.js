@@ -7,24 +7,41 @@ const initialState = {
     isAuthenticating: false,
 };
 
-const auth_reducer = (initialState, action) => {
+const auth_reducer = (state = initialState, action) => {
     console.log(initialState);
     switch(action.type){    
         case 'AUTH_LOGIN_USER_REQ':
-            return initialState;
+            return Object.assign({}, state, {
+                isAuthenticating: true,
+            });
         
         case 'AUTH_LOGIN_USER_SUCESS':
-            return initialState;
+            return Object.assign({}, state, {
+                    isAuthenticating: false,
+                    isAuthenticated: true,
+                    token: action.payload,
+                });
 
         case 'AUTH_LOGIN_USER_FAILURE':
-            return initialState;
+            return Object.assign({}, state, {
+                isAuthenticating: false,
+                isAuthenticated: false,
+                token: null,
+            });
 
         case 'AUTH_LOGOUT_USER':
-            return initialState;
+            return Object.assign({}, state, {
+                isAuthenticating: false,
+                isAuthenticated: false,
+                token: null,
+            });
         
         default:
             return initialState ;
         }
 }
 
-export default auth_reducer;
+const authReducer = combineReducers( {userAuth: auth_reducer} )
+
+
+export default authReducer;

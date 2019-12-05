@@ -24,8 +24,8 @@ function App() {
       <Router history={history}>
         <Switch>
           <Route exact path="/" component={Login} />
-          <Route exact path="/signup/" component={Signup} />
-          <Route exact path="/home/" component={Dashboard} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/home" component={Dashboard}  />
         </Switch>
       </Router>
     </Provider>

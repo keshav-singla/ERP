@@ -1,5 +1,11 @@
 import React from 'react'
 
+// Redux
+import {withRouter} from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { userSignOut } from '../actions/userAction';
+
 // Material Ui
 import Button from '@material-ui/core/Button'
 
@@ -10,11 +16,6 @@ import fire from '../config.js/fireBaseConfiguration'
 import Topbar from './bar'
 import Grid from '@material-ui/core/Grid'
 
-//Redux
-import { userSignOut } from '../actions/userAction';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-
 class Dashboard extends React.Component {
     constructor() {
         super()
@@ -22,14 +23,19 @@ class Dashboard extends React.Component {
         }
     }
 
+    componentWillReceiveProps(nextProps){
+       this.setState({
+           props: nextProps
+       })
+   }
+
     handleSignout = () => {
         fire.auth().signOut()
         // Response
             .then(res => {
                 console.log('User Signed Out');
                 // localStorage.removeItem("Refresh_Token")
-                this.props.history.push(`/`);
-                this.props.userSignOut()
+                this.props.userSignOut(null)
             })
         //An error happened.
             .catch((error) => {
@@ -59,9 +65,21 @@ class Dashboard extends React.Component {
     }
 }
 
-// Dispatching the data into Reducer
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ userSignOut }, dispatch)
+const mapDispatchToProps = dispatch => {
+    return {
+      dispatch,
+      userSignOut: bindActionCreators(userSignOut, dispatch)
+    };
+  };
+
+  
+// Accesing the Redux Store
+function mapStateToProps(state) {
+    return {
+        token: state.user,
+        isAuthenticated: state.user.isAuthenticated,
+        isAuthenticating: state.user.isAuthenticating,
+    }
 }
 
-export default connect ( ()=> {}, mapDispatchToProps) (Dashboard);
+export default withRouter(connect(mapStateToProps ,mapDispatchToProps)(Dashboard));
