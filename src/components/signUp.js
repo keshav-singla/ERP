@@ -279,7 +279,7 @@ class Signup extends React.Component {
 const mapDispatchToProps = dispatch => {
     return {
       dispatch,
-      userSignIn: bindActionCreators(createdUser, dispatch)
+      createdUser: bindActionCreators(createdUser, dispatch)
     };
   };
 

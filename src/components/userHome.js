@@ -22,12 +22,9 @@ class Dashboard extends React.Component {
         this.state = {
         }
     }
-
-    componentWillReceiveProps(nextProps){
-       this.setState({
-           props: nextProps
-       })
-   }
+    componentWillMount() {
+        console.log('ajsfhbjdgsg')
+    }
 
     handleSignout = () => {
         fire.auth().signOut()
@@ -35,7 +32,7 @@ class Dashboard extends React.Component {
             .then(res => {
                 console.log('User Signed Out');
                 // localStorage.removeItem("Refresh_Token")
-                this.props.userSignOut(null)
+                this.props.userSignOut(this.props.history)
             })
         //An error happened.
             .catch((error) => {

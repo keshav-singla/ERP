@@ -12,17 +12,18 @@ export const createdUser = (userData) => {
 }
 
 // Login
-export const userSignIn = (email, password) => {
+export const userSignIn = (email, password, history) => {
     console.log(email);
     console.log(password);
     return (dispatch, state) => {
+        console.log(history);
         dispatch(authLoginUserReq());
         fire.auth().signInWithEmailAndPassword(email, password)
             // Response of the API
             .then(response => {
                 console.log(response.user.refreshToken);
                 dispatch(authLoginUserSucess(response.user.refreshToken));
-                dispatch(push('/home'))            
+                history.push('/home')            
             })
             // Handle errors of the API
             .catch((error) => {
@@ -33,18 +34,18 @@ export const userSignIn = (email, password) => {
 }
 
 //Log out
-export function userLogout() {
+export function userLogout(history) {
     localStorage.removeItem('token');
+    history.push('/');
     return {
         type: 'SIGNOUT'
     }
 }
 
-export function userSignOut() {
+export function userSignOut(history) {
     localStorage.removeItem("Refresh_Token")
     return (dispatch, state) => {
-        dispatch(userLogout());
-        dispatch(push('/'));
+        dispatch(userLogout(history));
         return Promise.resolve();
     }
 }

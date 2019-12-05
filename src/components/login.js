@@ -48,7 +48,7 @@ class Login extends React.Component {
             !nextProps.isAuthenticating &&
             nextProps.isAuthenticated
         ) {
-            this.props.dispatch(push("home"));
+            this.props.history.push("/home");
         }
     }
 
@@ -58,7 +58,7 @@ class Login extends React.Component {
     }
 
     handleSubmit = (userData) => {
-        this.props.userSignIn(userData.email, userData.password)
+        this.props.userSignIn(userData.email, userData.password, this.props.history)
     }
 
     render() {
@@ -167,7 +167,6 @@ function mapStateToProps(state) {
         token: state.user,
         isAuthenticated: state.user,
         isAuthenticating: state.user,
-
     }
 }
 
