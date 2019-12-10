@@ -13,6 +13,8 @@ import { Provider } from 'react-redux'
 import configureStore from "./store";
 import createHistory from 'history/createBrowserHistory';
 
+import RequireAuthentication from './utils/userAuthentication';
+
 const history = createHistory() // <-- createHistory() call
 
 const store = configureStore(history) 
@@ -25,7 +27,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          <Route exact path="/home" component={Dashboard}  />
+          <Route exact path="/home" component={RequireAuthentication(Dashboard)}  />
         </Switch>
       </Router>
     </Provider>

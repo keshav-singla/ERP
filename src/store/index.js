@@ -1,8 +1,7 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunkMiddleware from "redux-thunk";
 import { routerMiddleware } from 'react-router-redux';
-import reducer from "../reducer/reducerIndex";
-//import authReducer from '../reducer/authReducer'
+import authReducer from '../reducer/authReducer'
 
 const initialState = {};
 
@@ -14,7 +13,7 @@ const configureStore  = (browserHistory) => {
   ]
 
 return createStore(
-    reducer,
+  authReducer,
     initialState,
     compose(
         applyMiddleware(...middleware),

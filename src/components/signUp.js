@@ -287,9 +287,9 @@ const mapDispatchToProps = dispatch => {
 // Accesing the Redux Store
 function mapStateToProps(state) {
     return {
-        token: state.user,
-        isAuthenticated: state.user.isAuthenticated,
-        isAuthenticating: state.user.isAuthenticating,
+        token: state.token,
+        isAuthenticated: state.isAuthenticated,
+        isAuthenticating: state.isAuthenticating,
 
     }
 }

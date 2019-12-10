@@ -1,5 +1,4 @@
 import React from 'react'
-import { push } from 'react-router-redux'
 
 //Material-UI
 import TextField from '@material-ui/core/TextField';
@@ -13,7 +12,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockOpenTwoToneIcon from '@material-ui/icons/LockOpenTwoTone';
 
 //Redux
-import { userSignIn } from '../actions/userAction';
+import * as auth from '../actions/userAction';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
@@ -34,20 +33,29 @@ class Login extends React.Component {
         }
     }
 
+    componentWillMount () {
+        if(this.props.isAuthenticated ) {
+            this.props.history.push("/home");
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         if (
-            this.props.isAuthenticating &&
-            !nextProps.isAuthenticating &&
-            !nextProps.isAuthenticated
-        ) 
-        {
-            this.setState({ error: "Invalid username and/or password. Try again." });
-        } 
+           !this.props.isAuthenticating && 
+           nextProps.isAuthenticating  && 
+           nextProps.isAuthenticated
+        ){
+            this.props.history.push('/')
+        }
+
         else if (
-            this.props.isAuthenticating &&
-            !nextProps.isAuthenticating &&
-            nextProps.isAuthenticated
+            !this.props.isAuthenticating  && 
+            nextProps.isAuthenticating && 
+            nextProps.isAuthenticated 
         ) {
+            console.log(!this.props.isAuthenticating);
+            console.log(nextProps.isAuthenticating);
+            console.log(nextProps.isAuthenticated);
             this.props.history.push("/home");
         }
     }
@@ -58,11 +66,10 @@ class Login extends React.Component {
     }
 
     handleSubmit = (userData) => {
-        this.props.userSignIn(userData.email, userData.password, this.props.history)
+        this.props.authActions.userSignIn(userData.email, userData.password, this.props.history)
     }
 
     render() {
-        console.log(this.props);
         return (
             <div>
 
@@ -70,7 +77,6 @@ class Login extends React.Component {
                     container
                     spacing={50}
                 >
-
                     <Grid item xs={12}>
                         <Topbar />
                     </Grid>
@@ -88,7 +94,7 @@ class Login extends React.Component {
                             <TextField
                                 label='E-mail'
                                 style={{ margin: 8 }}
-                                placeholder='abc@gmail.com'
+                                placeholder='abc@example.com'
                                 name='email'
                                 onChange={this.handleChange}
                                 fullWidth
@@ -156,18 +162,20 @@ class Login extends React.Component {
 const mapDispatchToProps = dispatch => {
     return {
       dispatch,
-      userSignIn: bindActionCreators(userSignIn, dispatch)
+      authActions: bindActionCreators(auth, dispatch)
     };
   };
 
 
 // Accesing the Redux Store
 function mapStateToProps(state) {
+    console.log(state);
     return {
-        token: state.user,
-        isAuthenticated: state.user,
-        isAuthenticating: state.user,
+        token: state.token,
+        isAuthenticated: state.isAuthenticated,
+        isAuthenticating: state.isAuthenticating,
     }
 }
+
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))

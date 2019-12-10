@@ -1,56 +1,55 @@
-// import React from 'react';
-// import { connect } from 'react-redux';
-// import { push } from 'react-router-redux';
-// import authLoginUserReq from '../actions/userAction'
-// import { bindActionCreators } from 'redux';
+import React from 'react';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import * as auth from '../actions/userAction';
+import { bindActionCreators } from 'redux';
 
-// export default function requireAuthentication(Component) {
-//     class AuthenticatedComponent extends React.Component {
-//         constructor(){
-//             super();
-//             this.state = {
-//             }
-//         }
+export default function RequireAuthentication(Component) {
+    class AuthenticatedComponent extends React.Component {
+        constructor(){
+            super();
+            this.state = {
+            }
+        }
 
-//         componentWillMount() {
-//             this.checkAuth();
-//         }
+        componentWillMount() {
+            this.checkAuth();
+        }
 
-//         checkAuth() {
-//             if (!this.props.authLoginUserReq || !this.props.token) {
-//                 const redirectAfterLogin = this.props.location.pathname;
-//                 this.props.dispatch(push(`/?next=${redirectAfterLogin}`));
-//             }
-//         }
+        checkAuth() {
+            if (!this.props.isAuthenticated || !this.props.token) {
+                const redirectAfterLogin = this.props.location.pathname;
+                this.props.dispatch(push(`${redirectAfterLogin}`));
+            }
+        }
 
-//         render() {
-//             console.log(this.props.token);
-//             return (
-//                 <div className="ui custom_light_teal_bg ">
-//                     {this.props.isAuthenticated
-//                         ? <Component {...this.props} />
-//                         : null
-//                 }
-//                 </div>
-//             );
-//         }
-//     }
+        render() {
+            console.log(this.props);
+            return (
+                <div className="ui custom_light_teal_bg ">
+                    {this.props.isAuthenticated
+                        ? <Component {...this.props} />
+                        : null
+                }
+                </div>
+            );
+        }
+    }
 
-    
+    const mapStateToProps = (state) => {
+        console.log(state);
+        return {
+           token: state.token,
+           isAuthenticated: state.isAuthenticated,
+        };
+    };
 
-//     const mapStateToProps = (state) => {
-//         return {
-//             isAuthenticated: state.auth.isAuthenticated,
-//             token: state.user
-//         };
-//     };
+    const mapDispatchToProps = (dispatch) => {
+        return {
+            dispatch,
+            authActions: bindActionCreators(auth, dispatch),
+        };
+    };
 
-//     const mapDispatchToProps = (dispatch) => {
-//         return {
-//             dispatch,
-//             actions: bindActionCreators(authLoginUserReq, dispatch),
-//         };
-//     };
-
-//     return connect(mapStateToProps, mapDispatchToProps)(AuthenticatedComponent);
-// }
+    return connect(mapStateToProps, mapDispatchToProps)(AuthenticatedComponent);
+}
