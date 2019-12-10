@@ -1,5 +1,4 @@
 import { createReducer } from '../utils'
-
 import {
     AUTH_LOGIN_USER_REQUEST,
     AUTH_LOGIN_USER_SUCCESS,

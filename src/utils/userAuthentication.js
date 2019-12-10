@@ -9,14 +9,16 @@ export default function RequireAuthentication(Component) {
         constructor(){
             super();
             this.state = {
+
             }
         }
 
         componentWillMount() {
+            // this.props.token = localStorage.getItem('Refresh_Token');
             this.checkAuth();
         }
 
-        checkAuth() {
+        checkAuth () {
             if (!this.props.isAuthenticated || !this.props.token) {
                 const redirectAfterLogin = this.props.location.pathname;
                 this.props.dispatch(push(`${redirectAfterLogin}`));
@@ -26,7 +28,7 @@ export default function RequireAuthentication(Component) {
         render() {
             console.log(this.props);
             return (
-                <div className="ui custom_light_teal_bg ">
+                <div className="ui custom_light_teal_bg">
                     {this.props.isAuthenticated
                         ? <Component {...this.props} />
                         : null

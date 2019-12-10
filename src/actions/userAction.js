@@ -49,9 +49,7 @@ export function userSignOut(history) {
             dispatch(autLoggedOutSuccess())
         })
         .catch(function(error) {
-            // An error happened.
         });
-        // dispatch(authLogoutUser(history));
         return Promise.resolve();
     }
 }

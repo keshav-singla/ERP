@@ -25,7 +25,7 @@ import { connect } from 'react-redux'
 import Topbar from './bar';
 
 //React-Router
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class Signup extends React.Component {
     constructor(props) {
@@ -54,11 +54,11 @@ class Signup extends React.Component {
         console.log(userData);
         if (this.validation()) {
             this.props.createdUser(userData)
+            // API Fire
             fire.auth().createUserWithEmailAndPassword(userData.email, userData.password)
 
             // Response of API
             .then(response => {
-                console.log(response);
                 console.log(response.user);
                 this.setState = ({
                     error: ''
@@ -106,14 +106,12 @@ class Signup extends React.Component {
     }
 
     render() {
-        console.log(this.props.task);
         return (
             <div>
                 <Grid
                     container
                     spacing={50}
                 >
-
                     <Grid item xs={12}>
                         <Topbar />
                     </Grid>
@@ -282,7 +280,6 @@ const mapDispatchToProps = dispatch => {
       createdUser: bindActionCreators(createdUser, dispatch)
     };
   };
-
   
 // Accesing the Redux Store
 function mapStateToProps(state) {
