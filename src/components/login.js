@@ -103,8 +103,8 @@ class Login extends React.Component {
                                 InputProps={{
                                     shrink: true,
                                     startAdornment: (
-                                        <InputAdornment position='start' >
-                                            <AccountCircleIcon color='primary' />
+                                        <InputAdornment position='start'>
+                                            <AccountCircleIcon color='primary'/>
                                         </InputAdornment>
                                     )
                                 }}

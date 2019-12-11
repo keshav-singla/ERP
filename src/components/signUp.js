@@ -96,7 +96,7 @@ class Signup extends React.Component {
 
         else if (this.passwordValidation(this.state)) {
             this.setState({
-                error: "Password must be same and longer than 6 digits"
+                error: "Password must be same and longet than 6 digits"
             })
         }
 
