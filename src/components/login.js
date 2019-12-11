@@ -41,22 +41,22 @@ class Login extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (
-           !this.props.isAuthenticating && 
-           nextProps.isAuthenticating  && 
+           !this.props.isAuthenticating &&
+           nextProps.isAuthenticating &&
            nextProps.isAuthenticated
         ){
             this.props.history.push('/')
         }
 
         else if (
-            !this.props.isAuthenticating  && 
-            nextProps.isAuthenticating && 
-            nextProps.isAuthenticated 
+            !this.props.isAuthenticating &&
+            nextProps.isAuthenticating &&
+            nextProps.isAuthenticated
         ) {
             console.log(!this.props.isAuthenticating);
             console.log(nextProps.isAuthenticating);
             console.log(nextProps.isAuthenticated);
-            this.props.history.push("/home");
+            this.props.history.push('/home')
         }
     }
 

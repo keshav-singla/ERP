@@ -14,18 +14,18 @@ import EmailTwoToneIcon from '@material-ui/icons/EmailTwoTone';
 import LockOpenTwoToneIcon from '@material-ui/icons/LockOpenTwoTone';
 
 //Firebase
-import fire from '../config.js/fireBaseConfiguration'
+import fire from '../config.js/fireBaseConfiguration';
 
 //Redux
-import { createdUser } from '../actions/userAction'
+import { createdUser } from '../actions/userAction';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 //React components
 import Topbar from './bar';
 
 //React-Router
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 class Signup extends React.Component {
     constructor(props) {
@@ -78,7 +78,7 @@ class Signup extends React.Component {
 
     passwordValidation = ({ password, confirmPassword }) => {
         if (password.length <= 6 || password !== confirmPassword) {
-            console.log('password invalid');
+            console.log('password   invalid');
             return true;
         }
 
@@ -252,7 +252,7 @@ class Signup extends React.Component {
 
                             <br />
                             
-                            <Link to="/"> Already have an Account?Login </Link>
+                            <Link to="/">Already have an account? Login </Link>
 
                             <br />
 
