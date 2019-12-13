@@ -1,18 +1,19 @@
 // ACTION TO BE PERFORMED ACCORDING TO THEIR TYPE
 import fire from '../config.js/fireBaseConfiguration';
 import {
+    USER_CREATED,
     AUTH_LOGIN_USER_REQUEST,
     AUTH_LOGIN_USER_SUCCESS,
     AUTH_LOGIN_USER_FAILURE,
     AUTH_LOGOUT_USER,
 } from '../constants';
-import {push} from 'react-router-redux';
+import { push } from 'react-router-redux';
 
 // Sign-up
 export const createdUser = (userData) => {
-    console.log(userData);
+    console.log(userData.name);
     return {
-        type: 'USERCREATED',
+        type: USER_CREATED,
         payload: userData
     };
 }
@@ -30,19 +31,19 @@ export const userSignIn = (email, password, history) => {
             .then(response => {
                 console.log(response.user.refreshToken);
                 dispatch(authLoginUserSucess(response.user.refreshToken));
-                history.push('/home')            
+                history.push('/home')
             })
             // Handle errors of the API
             .catch((error) => {
                 var errorMessage = error.message;
+                console.log(errorMessage);
                 dispatch(authLoginUserFailure(errorMessage));
             });
     }
 }
 
-//Log out
+// Log out
 export function userSignOut(history) {
-    // localStorage.removeItem("Refresh_Token")
     return (dispatch, state) => {
         fire.auth().signOut()
         .then(() => {
@@ -71,10 +72,10 @@ export const authLoginUserSucess = (token) => {
     }
 }
 
-export const authLoginUserFailure = (token) => {
+export const authLoginUserFailure = (error) => {
     return {
         type: AUTH_LOGIN_USER_FAILURE,
-        payload: token
+        payload: error
     }
 }
 

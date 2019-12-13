@@ -78,10 +78,9 @@ class Signup extends React.Component {
 
     passwordValidation = ({ password, confirmPassword }) => {
         if (password.length <= 6 || password !== confirmPassword) {
-            console.log('password   invalid');
+            console.log('Password is Invalid');
             return true;
         }
-
         else {
             return false;
         }
@@ -251,13 +250,13 @@ class Signup extends React.Component {
                             </Button>
 
                             <br />
-                            
-                            <Link to="/">Already have an account? Login </Link>
+
+                            <Link to="/">Already have an account? Login</Link>
 
                             <br />
 
                             {this.state.error}
-                            
+
                         </Paper>
 
                     </Grid>

@@ -23,7 +23,7 @@ class Dashboard extends React.Component {
         }
     }
     componentWillMount() {
-        console.log('ajsfhbjdgsg')
+        console.log('Testing')
     }
 
     handleSignout = () => {
@@ -31,13 +31,11 @@ class Dashboard extends React.Component {
         // Response
             .then(res => {
                 console.log('User Signed Out');
-                // localStorage.removeItem("Refresh_Token")
                 this.props.userSignOut(this.props.history)
             })
-        //An error happened.
+        // Error
             .catch((error) => {
             });
-
     }
 
     render() {
@@ -69,7 +67,6 @@ const mapDispatchToProps = dispatch => {
     };
   };
 
-  
 // Accesing the Redux Store
 function mapStateToProps(state) {
     console.log(state);

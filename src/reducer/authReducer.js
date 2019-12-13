@@ -1,5 +1,6 @@
 import { createReducer } from '../utils'
 import {
+    USER_CREATED,
     AUTH_LOGIN_USER_REQUEST,
     AUTH_LOGIN_USER_SUCCESS,
     AUTH_LOGIN_USER_FAILURE,
@@ -8,6 +9,7 @@ import {
 
 
 const initialState = {
+    userName:'',
     token: null,
     email: null,
     isAuthenticated: false,
@@ -15,14 +17,21 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
+    [USER_CREATED] : (state,payload) => {
+        console.log(payload);
+        return Object.assign({}, state, {
+            userName: payload.name
+        });
+    },
+
     [AUTH_LOGIN_USER_REQUEST]: (state, payload) => {
         return Object.assign({}, state, {
             isAuthenticating: true,
         });
     },
     [AUTH_LOGIN_USER_SUCCESS]: (state, payload) => {
-        console.log(payload);
-        console.log(state);
+        // console.log(payload);
+        // console.log(state);
         return Object.assign({}, state, {
             isAuthenticating: false,
             isAuthenticated: true,
@@ -34,8 +43,10 @@ export default createReducer(initialState, {
             isAuthenticating: false,
             isAuthenticated: false,
             token: null,
-        });
+            error : payload
+        });        
     },
+
     [AUTH_LOGOUT_USER]: (state, payload) => {
         return Object.assign({}, state, initialState);
     },

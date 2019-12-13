@@ -14,7 +14,6 @@ export default function RequireAuthentication(Component) {
         }
 
         componentWillMount() {
-            // this.props.token = localStorage.getItem('Refresh_Token');
             this.checkAuth();
         }
 

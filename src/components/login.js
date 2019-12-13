@@ -34,30 +34,27 @@ class Login extends React.Component {
     }
 
     componentWillMount () {
-        if(this.props.isAuthenticated ) {
+        if(this.props.isAuthenticated) {
             this.props.history.push("/home");
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (
-           !this.props.isAuthenticating &&
-           nextProps.isAuthenticating &&
-           nextProps.isAuthenticated
-        ){
-            this.props.history.push('/')
-        }
 
-        else if (
-            !this.props.isAuthenticating &&
+        if (!this.props.isAuthenticating &&
             nextProps.isAuthenticating &&
-            nextProps.isAuthenticated
-        ) {
-            console.log(!this.props.isAuthenticating);
-            console.log(nextProps.isAuthenticating);
-            console.log(nextProps.isAuthenticated);
-            this.props.history.push('/home')
-        }
+            nextProps.isAuthenticated){
+                this.props.history.push('/')
+            }
+
+        else if (!this.props.isAuthenticating &&
+            nextProps.isAuthenticating &&
+            nextProps.isAuthenticated){
+                console.log(!this.props.isAuthenticating);
+                console.log(nextProps.isAuthenticating);
+                console.log(nextProps.isAuthenticated);
+                this.props.history.push('/home')
+            }
     }
 
     handleChange = (e) => {
@@ -82,12 +79,12 @@ class Login extends React.Component {
                     </Grid>
 
                     <Grid
-                        item xs={4}
+                        item xs={3}
                     >
                     </Grid>
 
                     <Grid
-                        item xs={4}
+                        item xs={6}
                     >
                         <Paper style={{ padding: 20 }}>
 
@@ -124,7 +121,7 @@ class Login extends React.Component {
                                     shrink: true,
                                     startAdornment: (
                                         <InputAdornment position='start'>
-                                            <LockOpenTwoToneIcon color='primary' />
+                                            <LockOpenTwoToneIcon color='primary'/>
                                         </InputAdornment>
                                     )
                                 }}
@@ -138,16 +135,16 @@ class Login extends React.Component {
                             </Button>
                             <br />
 
-                            <Link to = '/signup'> New User?Signup </Link>
+                            <Link to = '/signup'> New User? Signup </Link>
 
                             <br />
 
-                            {this.state.error}
+                            {this.props.error}
                         </Paper>
 
                     </Grid>
 
-                    <Grid item xs={4} >
+                    <Grid item xs={3} >
 
                     </Grid>
 
@@ -174,6 +171,7 @@ function mapStateToProps(state) {
         token: state.token,
         isAuthenticated: state.isAuthenticated,
         isAuthenticating: state.isAuthenticating,
+        error : state.error
     }
 }
 
